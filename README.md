@@ -1,7 +1,7 @@
-# Dissecting and Modeling Modern GPU Cores — Reproduction
+# 现代 GPU Core 逆向建模论文复现
 
 <p align="center">
-  <b>From microbenchmarks to reverse engineering modern NVIDIA GPU cores</b>
+  <b>从 microbenchmark 到现代 NVIDIA GPU Core 逆向工程</b>
 </p>
 
 <p align="center">
@@ -13,102 +13,119 @@
 
 ---
 
-## Overview
+## 项目简介
 
-This repository records my reproduction process for the paper:
+本仓库用于记录我对论文：
 
 > **Dissecting and Modeling the Architecture of Modern GPU Cores**
 > MICRO 2025
 
-The goal of this project is not only to run the final simulator evaluation, but to reproduce the paper from the beginning:
-starting from small GPU microbenchmarks, reading GPU clock counters, inspecting SASS instructions, and gradually understanding how the paper reverse engineers modern NVIDIA GPU core microarchitecture.
+的复现过程。
 
----
+本项目的目标不是一开始就直接跑最终的 simulator 误差结果，而是从论文最核心的逆向工程方法开始复现：
 
-## Main Goal
-
-The reproduction is divided into two stages.
-
-### Stage 1: Reverse Engineering Experiments
-
-This is the current focus.
-
-I want to reproduce the small experiments used in the paper to infer GPU core behavior, including:
-
-* GPU `CLOCK` / `clock64()` measurement
-* SASS disassembly
-* register file bank conflicts
-* stall counter behavior
-* dependence counters
-* issue scheduler policy
-* register file cache and reuse bits
-* memory pipeline behavior
-
-### Stage 2: Simulator Modeling and Validation
-
-This will be done after the reverse engineering experiments are understood.
-
-The later goal is to study how the discovered microarchitectural details are modeled in the remodeled simulator and compare simulated execution cycles with real hardware.
-
----
-
-## Hardware and Software Environment
-
-Current local reproduction environment:
-
-| Component    | Version                    |
-| ------------ | -------------------------- |
-| GPU          | NVIDIA GeForce RTX 5070 Ti |
-| Architecture | Blackwell                  |
-| OS           | WSL2 Ubuntu 24.04          |
-| CUDA Toolkit | 12.8                       |
-| Compiler     | `nvcc` 12.8                |
-| SASS tools   | `cuobjdump`, `nvdisasm`    |
-| Status       | Initial environment ready  |
-
-The original paper also evaluates Blackwell GPUs, so RTX 5070 Ti is a meaningful platform for reproducing the Blackwell-related methodology.
-
----
-
-## Reproduction Roadmap
-
-```mermaid
-flowchart TD
-    A[Set up CUDA 12.8 environment] --> B[Run first clock64 test]
-    B --> C[Dump and inspect SASS]
-    C --> D[Reproduce Register File Bank Conflict]
-    D --> E[Reproduce Stall Counter Experiment]
-    E --> F[Study Dependence Counters]
-    F --> G[Study Issue Scheduler Policy]
-    G --> H[Study Register File Cache / Reuse Bits]
-    H --> I[Study Memory Pipeline]
-    I --> J[Model findings in simulator]
-    J --> K[Compare simulation with real hardware]
+```text
+编写小型 GPU microbenchmark
+→ 读取 GPU CLOCK 周期计数器
+→ 观察 SASS 指令
+→ 修改/分析 control bits
+→ 改变单一变量并测量周期变化
+→ 反推现代 NVIDIA GPU Core 的微架构行为
+→ 最后再研究模拟器建模与 MAPE 误差验证
 ```
 
 ---
 
-## Current Progress
+## 当前目标
 
-* [x] Set up WSL2 Ubuntu 24.04 environment
-* [x] Install CUDA Toolkit 12.8
-* [x] Verify `nvcc`
-* [x] Verify `cuobjdump`
-* [x] Verify `nvdisasm`
-* [x] Run first `clock64()` microbenchmark
-* [x] Dump SASS for the first CUDA kernel
-* [ ] Reproduce register file bank conflict experiment
-* [ ] Reproduce stall counter experiment
-* [ ] Reproduce dependence counter experiment
-* [ ] Reproduce issue scheduler experiment
-* [ ] Reproduce register file cache experiment
-* [ ] Study memory pipeline experiments
-* [ ] Study remodeled simulator implementation
-* [ ] Run final simulation accuracy evaluation
+本项目分为两个主要阶段。
+
+### 阶段一：复现逆向工程实验
+
+这是当前阶段的重点。
+
+主要目标是复现论文中用于反推 GPU Core 微架构的小实验，包括：
+
+* GPU `CLOCK` / `clock64()` 周期测量
+* SASS 反汇编与指令观察
+* Register File bank conflict
+* Stall counter 行为
+* Dependence counters 行为
+* Issue scheduler 策略
+* Register File Cache 与 reuse bit
+* Memory pipeline 行为
+
+### 阶段二：模拟器建模与验证
+
+在理解逆向实验后，再进一步研究论文如何把这些微架构特征建模进 remodeled simulator 中。
+
+后续目标包括：
+
+* 阅读 remodeled simulator 的实现
+* 理解其与原始 Accel-Sim / GPGPU-Sim 模型的区别
+* 运行 benchmark
+* 对比真实硬件周期与模拟器周期
+* 计算 APE / MAPE 误差
 
 ---
 
-## Repository Structure
+## 实验环境
+
+当前本地复现实验环境如下：
+
+| 项目           | 配置                         |
+| ------------ | -------------------------- |
+| GPU          | NVIDIA GeForce RTX 5070 Ti |
+| GPU 架构       | Blackwell                  |
+| 系统环境         | WSL2 Ubuntu 24.04          |
+| CUDA Toolkit | 12.8                       |
+| 编译器          | `nvcc` 12.8                |
+| SASS 工具      | `cuobjdump`, `nvdisasm`    |
+| 当前状态         | CUDA 环境已搭建，基础 CLOCK 测试已完成  |
+
+论文中也对 Blackwell 架构进行了验证，因此 RTX 5070 Ti 可以作为复现 Blackwell 相关实验的重要平台。
+
+---
+
+## 复现路线图
+
+```mermaid
+flowchart TD
+    A[搭建 CUDA 12.8 环境] --> B[完成第一个 clock64 测试]
+    B --> C[使用 cuobjdump 查看 SASS]
+    C --> D[复现 Register File Bank Conflict 实验]
+    D --> E[复现 Stall Counter 实验]
+    E --> F[研究 Dependence Counters]
+    F --> G[研究 Issue Scheduler 策略]
+    G --> H[研究 Register File Cache / Reuse Bits]
+    H --> I[研究 Memory Pipeline]
+    I --> J[阅读并理解 remodeled simulator]
+    J --> K[对比模拟器结果与真实硬件结果]
+```
+
+---
+
+## 当前进度
+
+* [x] 搭建 WSL2 Ubuntu 24.04 环境
+* [x] 安装 CUDA Toolkit 12.8
+* [x] 验证 `nvcc`
+* [x] 验证 `cuobjdump`
+* [x] 验证 `nvdisasm`
+* [x] 完成第一个 `clock64()` microbenchmark
+* [x] dump 第一个 CUDA kernel 的 SASS
+* [ ] 复现 register file bank conflict 实验
+* [ ] 复现 stall counter 实验
+* [ ] 复现 dependence counter 实验
+* [ ] 复现 issue scheduler 实验
+* [ ] 复现 register file cache 实验
+* [ ] 研究 memory pipeline 实验
+* [ ] 阅读 remodeled simulator 实现
+* [ ] 运行最终 simulator accuracy evaluation
+
+---
+
+## 仓库结构
 
 ```text
 modern-gpu-core-reproduce/
@@ -147,17 +164,17 @@ modern-gpu-core-reproduce/
 
 ---
 
-## First Microbenchmark: Clock Test
+## 第一个 Microbenchmark：CLOCK 测试
 
-The first test verifies that the GPU clock counter can be read inside a CUDA kernel.
+第一个测试用于验证 CUDA kernel 中是否能够读取 GPU clock counter。
 
-Example output:
+测试输出示例：
 
 ```text
 elapsed cycles = 1
 ```
 
-The corresponding SASS contains instructions such as:
+对应的 SASS 中可以看到类似指令：
 
 ```sass
 CS2UR UR6, SR_CLOCKLO
@@ -166,147 +183,193 @@ STG.E.64
 EXIT
 ```
 
-This confirms that `clock64()` is compiled into special-register clock read instructions, which is the foundation for later reverse engineering experiments.
+这说明 CUDA 中的 `clock64()` 最终会被编译成读取 GPU special register 的 SASS 指令。
 
----
-
-## Why Start from Microbenchmarks?
-
-The paper does not begin by simply running large benchmarks.
-Instead, it uses carefully designed small instruction sequences to test one hypothesis at a time.
-
-The general idea is:
+这个测试是后续所有逆向工程实验的基础，因为论文的核心方法就是：
 
 ```text
-small instruction sequence
-→ measure hardware cycles
-→ change one variable
-→ compare timing or correctness
-→ infer microarchitectural behavior
+在目标指令序列前后读取 CLOCK
+→ 计算 elapsed cycles
+→ 根据周期变化反推 GPU Core 行为
 ```
-
-This project follows the same methodology.
 
 ---
 
-## Planned Experiments
+## 为什么先做 Microbenchmark？
+
+这篇论文的重点不是单纯跑 benchmark，而是通过非常小、非常可控的指令序列来验证某个硬件假设。
+
+基本方法是：
+
+```text
+设计一段很小的指令序列
+→ 在真实 GPU 上运行
+→ 记录 GPU clock cycles
+→ 改变一个变量
+→ 对比周期或结果是否变化
+→ 反推出微架构行为
+```
+
+因此，本项目也按照这个顺序进行复现：
+
+```text
+先理解方法
+再复现小实验
+再研究模拟器建模
+最后再做大规模误差验证
+```
+
+---
+
+## 后续计划实验
 
 ### 1. Register File Bank Conflict
 
-Goal:
+目标：
 
-Observe whether different source register numbers cause different execution cycles.
+观察不同源寄存器编号是否会导致不同执行周期。
 
-Expected idea:
+基本思路：
 
 ```text
-different register bank usage
-→ different number of bubbles
-→ infer register file bank conflicts
+改变源寄存器编号
+→ 观察 elapsed cycles
+→ 判断是否发生 register file bank conflict
 ```
+
+该实验用于理解现代 NVIDIA GPU 中 register file 的 bank 组织方式和读端口冲突。
 
 ---
 
 ### 2. Stall Counter
 
-Goal:
+目标：
 
-Understand how fixed-latency instruction dependencies are handled.
+理解固定延迟指令之间的数据依赖如何被处理。
 
-Expected idea:
+基本思路：
 
 ```text
-incorrect stall counter
-→ wrong result or shorter latency
-correct stall counter
-→ correct result and expected cycles
+设置错误的 stall counter
+→ 程序可能更快但结果错误
+
+设置正确的 stall counter
+→ 程序结果正确但周期更长
 ```
+
+该实验用于理解现代 NVIDIA GPU 中 compiler-assisted dependence management 的核心机制。
 
 ---
 
 ### 3. Dependence Counters
 
-Goal:
+目标：
 
-Study how variable-latency instructions such as memory loads are synchronized.
+研究可变延迟指令，例如 memory load，如何处理数据依赖。
 
-Expected idea:
+基本思路：
 
 ```text
-LDG / memory instruction
-→ dependence counter increases
-→ consumer waits until counter reaches zero
+LDG 等 memory instruction
+→ 增加 dependence counter
+→ 后续 consumer 等待 counter 归零
 ```
+
+该实验用于理解 SB0 到 SB5 这类 dependence counters 的作用。
 
 ---
 
 ### 4. Issue Scheduler Policy
 
-Goal:
+目标：
 
-Infer which warp is selected for issue in different conditions.
+推断 GPU sub-core 中 warp issue scheduler 的调度策略。
 
-Expected idea:
+基本思路：
 
 ```text
-multiple warps
-→ record clock cycles
-→ reconstruct issue timeline
+构造多个 warp
+→ 记录每个 warp 的 CLOCK 时间
+→ 还原 issue timeline
+→ 推断 scheduler policy
 ```
+
+该实验用于研究论文中提出的 CGGTY 策略。
 
 ---
 
 ### 5. Register File Cache
 
-Goal:
+目标：
 
-Study the effect of reuse bits on register file reads.
+研究 reuse bit 对 register file read 的影响。
 
-Expected idea:
+基本思路：
 
 ```text
-reuse bit set
-→ operand may hit in register file cache
-reuse bit not set
-→ operand reads from register file
+设置 reuse bit
+→ 操作数可能命中 register file cache
+
+不设置 reuse bit
+→ 操作数需要从 register file 读取
 ```
+
+该实验用于理解现代 NVIDIA GPU 中软件管理的 register file cache。
 
 ---
 
 ### 6. Memory Pipeline
 
-Goal:
+目标：
 
-Study load/store queue behavior, memory latency, and sub-core contention.
+研究 load/store queue、memory latency、sub-core contention 等 memory pipeline 行为。
 
-Expected idea:
+基本思路：
 
 ```text
-controlled memory instructions
-→ measure cycles
-→ infer memory pipeline constraints
+构造可控 memory instruction 序列
+→ 测量执行周期
+→ 改变访存宽度、active lanes、warp 数量等变量
+→ 推断 memory pipeline 约束
 ```
 
 ---
 
-## Notes
+## 当前阶段总结
 
-This repository is a learning-oriented reproduction project.
-Some experiments may not exactly match the paper at the beginning because controlling SASS instructions and control bits requires additional tooling such as SASS modification tools.
-
-The current priority is:
+目前已经完成：
 
 ```text
-understand the method first
-then reproduce each microbenchmark
-then study the simulator model
-finally reproduce the validation results
+WSL2 Ubuntu 24.04
+CUDA Toolkit 12.8
+nvcc / cuobjdump / nvdisasm
+RTX 5070 Ti 上的第一个 clock64 测试
+SASS dump 验证
+```
+
+下一步重点是：
+
+```text
+1. 继续写简单 PTX / CUDA microbenchmark
+2. 熟悉 SASS 输出
+3. 学习如何控制寄存器编号
+4. 准备复现论文中的 Register File Bank Conflict 实验
 ```
 
 ---
 
-## References
+## 说明
 
-* Rodrigo Huerta, Mojtaba Abaie Shoushtary, José-Lorenzo Cruz, Antonio Gonzalez.
-  **Dissecting and Modeling the Architecture of Modern GPU Cores.**
-  MICRO 2025.
+本仓库是一个学习型论文复现项目。
+
+由于论文中的部分实验需要精确控制 SASS 指令和 control bits，因此后续可能需要使用 CUAssembler、NVBit 或其他 SASS 修改工具。
+
+当前阶段不追求一次性复现所有最终数据，而是优先复现论文的研究方法和关键微架构发现过程。
+
+---
+
+## 参考论文
+
+Rodrigo Huerta, Mojtaba Abaie Shoushtary, José-Lorenzo Cruz, Antonio Gonzalez.
+**Dissecting and Modeling the Architecture of Modern GPU Cores.**
+MICRO 2025.
