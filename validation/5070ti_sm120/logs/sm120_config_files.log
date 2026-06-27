@@ -1,0 +1,4 @@
+./gpu-simulator/configs/tested-cfgs/SM120_RTX5070_TI/trace.config
+./gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM120_RTX5070_TI/config_ampere_islip.icnt
+./gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM120_RTX5070_TI/gpgpusim.config
+./gpu-simulator/gpgpu-sim/configs/tested-cfgs/SM120_RTX5070_TI/accelwattch_sass_sim.xml

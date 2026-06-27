@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/only/modern-gpu-simulator-micro-2025/simulator-remodeled/./util/tracer_nvbit/run_hw_trace.py", line 21, in <module>
+    import psutil
+ModuleNotFoundError: No module named 'psutil'

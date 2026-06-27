@@ -1,0 +1,285 @@
+========== build template ==========
+========== resource usage ==========
+
+Resource usage:
+ Common:
+  GLOBAL:0
+ Function lowreg_kernel:
+  REG:18 STACK:0 SHARED:0 LOCAL:0 CONSTANT[0]:920 TEXTURE:0 SURFACE:0 SAMPLER:0
+========== dump template sass ==========
+
+	code for sm_120
+	.target	sm_120
+
+		Function : lowreg_kernel
+	.headerflags	@"EF_CUDA_SM120 EF_CUDA_VIRTUAL_SM(EF_CUDA_SM120)"
+        /*0000*/                   LDC R1, c[0x0][0x37c]                                 ?trans1;          /* 0x0000df00ff017b82 */
+                                                                                                           /* 0x000fe20000000800 */
+        /*0010*/                   S2R R15, SR_TID.X                            &wr=0x0  ?trans1;          /* 0x00000000000f7919 */
+                                                                                                           /* 0x000e220000002100 */
+        /*0020*/                   LDCU.64 UR4, c[0x0][0x358]                   &wr=0x1  ?trans1;          /* 0x00006b00ff0477ac */
+                                                                                                           /* 0x000e620008000a00 */
+        /*0030*/                   IADD3 R0, PT, PT, R15.reuse, 0xa, RZ         &req={0} ?trans2;          /* 0x0000000a0f007810 */
+                                                                                                           /* 0x041fe40007ffe0ff */
+        /*0040*/                   IADD3 R2, PT, PT, R15.reuse, 0xc, RZ                  ?trans2;          /* 0x0000000c0f027810 */
+                                                                                                           /* 0x040fe40007ffe0ff */
+        /*0050*/                   IADD3 R3, PT, PT, R15.reuse, 0xe, RZ                  ?trans2;          /* 0x0000000e0f037810 */
+                                                                                                           /* 0x040fe40007ffe0ff */
+        /*0060*/                   IADD3 R4, PT, PT, R15.reuse, 0x10, RZ                 ?trans2;          /* 0x000000100f047810 */
+                                                                                                           /* 0x040fe40007ffe0ff */
+        /*0070*/                   IADD3 R5, PT, PT, R15, 0x12, RZ                       ?WAIT2_END_GROUP; /* 0x000000120f057810 */
+                                                                                                           /* 0x000fc40007ffe0ff */
+        /*0080*/                   IADD3 R6, PT, PT, R15.reuse, 0x13, RZ                 ?trans2;          /* 0x000000130f067810 */
+                                                                                                           /* 0x040fe40007ffe0ff */
+        /*0090*/                   IADD3 R7, PT, PT, R15.reuse, 0x14, RZ                 ?trans2;          /* 0x000000140f077810 */
+                                                                                                           /* 0x040fe40007ffe0ff */
+        /*00a0*/                   IADD3 R8, PT, PT, R15.reuse, 0x15, RZ                 ?trans2;          /* 0x000000150f087810 */
+                                                                                                           /* 0x040fe40007ffe0ff */
+        /*00b0*/                   IADD3 R10, PT, PT, R15, 0x24, RZ                      ?trans2;          /* 0x000000240f0a7810 */
+                                                                                                           /* 0x000fe40007ffe0ff */
+        /*00c0*/                   I2FP.F32.U32 R0, R0                                   ?trans2;          /* 0x0000000000007245 */
+                                                                                                           /* 0x000fe40000201000 */
+        /*00d0*/                   I2FP.F32.U32 R9, R2                                   ?WAIT2_END_GROUP; /* 0x0000000200097245 */
+                                                                                                           /* 0x000fc40000201000 */
+        /*00e0*/                   I2FP.F32.U32 R3, R3                                   ?trans2;          /* 0x0000000300037245 */
+                                                                                                           /* 0x000fe40000201000 */
+        /*00f0*/                   I2FP.F32.U32 R4, R4                                   ?trans2;          /* 0x0000000400047245 */
+                                                                                                           /* 0x000fe40000201000 */
+        /*0100*/                   I2FP.F32.U32 R5, R5                                   ?trans2;          /* 0x0000000500057245 */
+                                                                                                           /* 0x000fe40000201000 */
+        /*0110*/                   I2FP.F32.U32 R6, R6                                   ?trans2;          /* 0x0000000600067245 */
+                                                                                                           /* 0x000fe40000201000 */
+        /*0120*/                   I2FP.F32.U32 R7, R7                                   ?trans2;          /* 0x0000000700077245 */
+                                                                                                           /* 0x000fe40000201000 */
+        /*0130*/                   I2FP.F32.U32 R11, R8                                  ?trans1;          /* 0x00000008000b7245 */
+                                                                                                           /* 0x000fe20000201000 */
+        /*0140*/                   CS2UR UR6, SR_CLOCKLO                                 ?trans1;          /* 0x00000000000678cb */
+                                                                                                           /* 0x000fe20000015000 */
+        /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+                                                                                                           /* 0x000fe20000000003 */
+        /*0160*/                   FFMA R5, R4, R5, R7                                   ?trans1;          /* 0x0000000504057223 */
+                                                                                                           /* 0x000fe20000000007 */
+        /*0170*/                   CS2R R2, SR_CLOCKLO                                   ?trans1;          /* 0x0000000000027805 */
+                                                                                                           /* 0x000fe20000015000 */
+        /*0180*/                   IADD3 R10, PT, PT, R10, 0x3, R15                      ?trans1;          /* 0x000000030a0a7810 */
+                                                                                                           /* 0x000fe20007ffe00f */
+        /*0190*/                   FADD R11, R6, R11                                     ?trans1;          /* 0x0000000b060b7221 */
+                                                                                                           /* 0x000fe20000000000 */
+        /*01a0*/                   FADD R13, R0, R5                                      ?WAIT3_END_GROUP; /* 0x00000005000d7221 */
+                                                                                                           /* 0x000fc60000000000 */
+        /*01b0*/                   IADD.64 R2, R2, -UR6                                  ?trans2;          /* 0x8000000602027c35 */
+                                                                                                           /* 0x000fe4000f8e0200 */
+        /*01c0*/                   LDC.64 R4, c[0x0][0x380]                     &wr=0x1  ?trans8;          /* 0x0000e000ff047b82 */
+                                                                                                           /* 0x000e700000000a00 */
+        /*01d0*/                   LDC.64 R6, c[0x0][0x388]                     &wr=0x0  ?trans8;          /* 0x0000e200ff067b82 */
+                                                                                                           /* 0x000e300000000a00 */
+        /*01e0*/                   LDC.64 R8, c[0x0][0x390]                     &wr=0x2  ?trans1;          /* 0x0000e400ff087b82 */
+                                                                                                           /* 0x000ea20000000a00 */
+        /*01f0*/                   STG.E.64 desc[UR4][R4.64], R2                &req={1} ?trans1;          /* 0x0000000204007986 */
+                                                                                                           /* 0x002fe2000c101b04 */
+        /*0200*/                   I2FP.F32.U32 R10, R10                                 ?WAIT3_END_GROUP; /* 0x0000000a000a7245 */
+                                                                                                           /* 0x000fc60000201000 */
+        /*0210*/                   STG.E desc[UR4][R6.64], R13                  &req={0} ?trans2;          /* 0x0000000d06007986 */
+                                                                                                           /* 0x001fe4000c101904 */
+        /*0220*/                   FFMA R11, R11, 1.000000003171076851e-30, R10          ?WAIT5_END_GROUP; /* 0x0da242600b0b7823 */
+                                                                                                           /* 0x000fca000000000a */
+        /*0230*/                   STG.E desc[UR4][R8.64], R11                  &req={2} ?trans1;          /* 0x0000000b08007986 */
+                                                                                                           /* 0x004fe2000c101904 */
+        /*0240*/                   EXIT                                                  ?trans5;          /* 0x000000000000794d */
+                                                                                                           /* 0x000fea0003800000 */
+        /*0250*/                   BRA 0x250;                                                              /* 0xfffffffc00fc7947 */
+                                                                                                           /* 0x000fc0000383ffff */
+        /*0260*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*0270*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*0280*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*0290*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*02a0*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*02b0*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*02c0*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*02d0*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*02e0*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+        /*02f0*/                   NOP;                                                                    /* 0x0000000000007918 */
+                                                                                                           /* 0x000fc00000000000 */
+		..........
+
+
+========== key template sass ==========
+13:        /*0030*/                   IADD3 R0, PT, PT, R15.reuse, 0xa, RZ         &req={0} ?trans2;          /* 0x0000000a0f007810 */
+15:        /*0040*/                   IADD3 R2, PT, PT, R15.reuse, 0xc, RZ                  ?trans2;          /* 0x0000000c0f027810 */
+17:        /*0050*/                   IADD3 R3, PT, PT, R15.reuse, 0xe, RZ                  ?trans2;          /* 0x0000000e0f037810 */
+19:        /*0060*/                   IADD3 R4, PT, PT, R15.reuse, 0x10, RZ                 ?trans2;          /* 0x000000100f047810 */
+21:        /*0070*/                   IADD3 R5, PT, PT, R15, 0x12, RZ                       ?WAIT2_END_GROUP; /* 0x000000120f057810 */
+23:        /*0080*/                   IADD3 R6, PT, PT, R15.reuse, 0x13, RZ                 ?trans2;          /* 0x000000130f067810 */
+25:        /*0090*/                   IADD3 R7, PT, PT, R15.reuse, 0x14, RZ                 ?trans2;          /* 0x000000140f077810 */
+27:        /*00a0*/                   IADD3 R8, PT, PT, R15.reuse, 0x15, RZ                 ?trans2;          /* 0x000000150f087810 */
+29:        /*00b0*/                   IADD3 R10, PT, PT, R15, 0x24, RZ                      ?trans2;          /* 0x000000240f0a7810 */
+31:        /*00c0*/                   I2FP.F32.U32 R0, R0                                   ?trans2;          /* 0x0000000000007245 */
+33:        /*00d0*/                   I2FP.F32.U32 R9, R2                                   ?WAIT2_END_GROUP; /* 0x0000000200097245 */
+35:        /*00e0*/                   I2FP.F32.U32 R3, R3                                   ?trans2;          /* 0x0000000300037245 */
+37:        /*00f0*/                   I2FP.F32.U32 R4, R4                                   ?trans2;          /* 0x0000000400047245 */
+39:        /*0100*/                   I2FP.F32.U32 R5, R5                                   ?trans2;          /* 0x0000000500057245 */
+41:        /*0110*/                   I2FP.F32.U32 R6, R6                                   ?trans2;          /* 0x0000000600067245 */
+43:        /*0120*/                   I2FP.F32.U32 R7, R7                                   ?trans2;          /* 0x0000000700077245 */
+45:        /*0130*/                   I2FP.F32.U32 R11, R8                                  ?trans1;          /* 0x00000008000b7245 */
+47:        /*0140*/                   CS2UR UR6, SR_CLOCKLO                                 ?trans1;          /* 0x00000000000678cb */
+49:        /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+51:        /*0160*/                   FFMA R5, R4, R5, R7                                   ?trans1;          /* 0x0000000504057223 */
+53:        /*0170*/                   CS2R R2, SR_CLOCKLO                                   ?trans1;          /* 0x0000000000027805 */
+55:        /*0180*/                   IADD3 R10, PT, PT, R10, 0x3, R15                      ?trans1;          /* 0x000000030a0a7810 */
+57:        /*0190*/                   FADD R11, R6, R11                                     ?trans1;          /* 0x0000000b060b7221 */
+59:        /*01a0*/                   FADD R13, R0, R5                                      ?WAIT3_END_GROUP; /* 0x00000005000d7221 */
+69:        /*01f0*/                   STG.E.64 desc[UR4][R4.64], R2                &req={1} ?trans1;          /* 0x0000000204007986 */
+71:        /*0200*/                   I2FP.F32.U32 R10, R10                                 ?WAIT3_END_GROUP; /* 0x0000000a000a7245 */
+73:        /*0210*/                   STG.E desc[UR4][R6.64], R13                  &req={0} ?trans2;          /* 0x0000000d06007986 */
+75:        /*0220*/                   FFMA R11, R11, 1.000000003171076851e-30, R10          ?WAIT5_END_GROUP; /* 0x0da242600b0b7823 */
+77:        /*0230*/                   STG.E desc[UR4][R8.64], R11                  &req={2} ?trans1;          /* 0x0000000b08007986 */
+========== build launcher ==========
+========== generate low-reg equivalent cubins ==========
+[INFO] clock window lines: 46 -> 52
+[INFO] original value -> float reg:
+  value 10 -> R0
+  value 12 -> R9
+  value 14 -> R3
+  value 16 -> R4
+  value 18 -> R5
+  value 19 -> R6
+  value 20 -> R7
+  value 21 -> R11
+[INFO] variable FFMA before: /*0160*/                   FFMA R5, R4, R5, R7                                   ?trans1;          /* 0x0000000504057223 */
+[INFO] fixed FFMA kept: /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+[INFO] patch variable FFMA sources to values 16,19,21
+[INFO] physical sources: R4, R6, R11
+[PATCH] variable_FFMA_sources_16_19_21: matched 1
+[PATCH] variable_FFMA_sources_16_19_21: offset 0x7e0
+[OK] wrote case_odd_odd.cubin
+[INFO] clock window lines: 46 -> 52
+[INFO] original value -> float reg:
+  value 10 -> R0
+  value 12 -> R9
+  value 14 -> R3
+  value 16 -> R4
+  value 18 -> R5
+  value 19 -> R6
+  value 20 -> R7
+  value 21 -> R11
+[INFO] variable FFMA before: /*0160*/                   FFMA R5, R4, R5, R7                                   ?trans1;          /* 0x0000000504057223 */
+[INFO] fixed FFMA kept: /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+[INFO] patch variable FFMA sources to values 16,18,21
+[INFO] physical sources: R4, R5, R11
+[PATCH] variable_FFMA_sources_16_18_21: matched 1
+[PATCH] variable_FFMA_sources_16_18_21: offset 0x7e0
+[OK] wrote case_even_odd.cubin
+[INFO] clock window lines: 46 -> 52
+[INFO] original value -> float reg:
+  value 10 -> R0
+  value 12 -> R9
+  value 14 -> R3
+  value 16 -> R4
+  value 18 -> R5
+  value 19 -> R6
+  value 20 -> R7
+  value 21 -> R11
+[INFO] variable FFMA before: /*0160*/                   FFMA R5, R4, R5, R7                                   ?trans1;          /* 0x0000000504057223 */
+[INFO] fixed FFMA kept: /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+[INFO] patch variable FFMA sources to values 16,18,20
+[INFO] physical sources: R4, R5, R7
+[PATCH] variable_FFMA_sources_16_18_20: no change needed
+[OK] wrote case_even_even.cubin
+========== disassemble low-reg equivalent cubins ==========
+----- case_odd_odd.cubin -----
+47:        /*0140*/                   CS2UR UR6, SR_CLOCKLO                                 ?trans1;          /* 0x00000000000678cb */
+49:        /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+51:        /*0160*/                   FFMA R5, R4, R6, R11                                  ?trans1;          /* 0x0000000604057223 */
+53:        /*0170*/                   CS2R R2, SR_CLOCKLO                                   ?trans1;          /* 0x0000000000027805 */
+57:        /*0190*/                   FADD R11, R6, R11                                     ?trans1;          /* 0x0000000b060b7221 */
+59:        /*01a0*/                   FADD R13, R0, R5                                      ?WAIT3_END_GROUP; /* 0x00000005000d7221 */
+69:        /*01f0*/                   STG.E.64 desc[UR4][R4.64], R2                &req={1} ?trans1;          /* 0x0000000204007986 */
+73:        /*0210*/                   STG.E desc[UR4][R6.64], R13                  &req={0} ?trans2;          /* 0x0000000d06007986 */
+75:        /*0220*/                   FFMA R11, R11, 1.000000003171076851e-30, R10          ?WAIT5_END_GROUP; /* 0x0da242600b0b7823 */
+77:        /*0230*/                   STG.E desc[UR4][R8.64], R11                  &req={2} ?trans1;          /* 0x0000000b08007986 */
+----- case_even_odd.cubin -----
+47:        /*0140*/                   CS2UR UR6, SR_CLOCKLO                                 ?trans1;          /* 0x00000000000678cb */
+49:        /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+51:        /*0160*/                   FFMA R5, R4, R5, R11                                  ?trans1;          /* 0x0000000504057223 */
+53:        /*0170*/                   CS2R R2, SR_CLOCKLO                                   ?trans1;          /* 0x0000000000027805 */
+57:        /*0190*/                   FADD R11, R6, R11                                     ?trans1;          /* 0x0000000b060b7221 */
+59:        /*01a0*/                   FADD R13, R0, R5                                      ?WAIT3_END_GROUP; /* 0x00000005000d7221 */
+69:        /*01f0*/                   STG.E.64 desc[UR4][R4.64], R2                &req={1} ?trans1;          /* 0x0000000204007986 */
+73:        /*0210*/                   STG.E desc[UR4][R6.64], R13                  &req={0} ?trans2;          /* 0x0000000d06007986 */
+75:        /*0220*/                   FFMA R11, R11, 1.000000003171076851e-30, R10          ?WAIT5_END_GROUP; /* 0x0da242600b0b7823 */
+77:        /*0230*/                   STG.E desc[UR4][R8.64], R11                  &req={2} ?trans1;          /* 0x0000000b08007986 */
+----- case_even_even.cubin -----
+47:        /*0140*/                   CS2UR UR6, SR_CLOCKLO                                 ?trans1;          /* 0x00000000000678cb */
+49:        /*0150*/                   FFMA R0, R0, R9, R3                                   ?trans1;          /* 0x0000000900007223 */
+51:        /*0160*/                   FFMA R5, R4, R5, R7                                   ?trans1;          /* 0x0000000504057223 */
+53:        /*0170*/                   CS2R R2, SR_CLOCKLO                                   ?trans1;          /* 0x0000000000027805 */
+57:        /*0190*/                   FADD R11, R6, R11                                     ?trans1;          /* 0x0000000b060b7221 */
+59:        /*01a0*/                   FADD R13, R0, R5                                      ?WAIT3_END_GROUP; /* 0x00000005000d7221 */
+69:        /*01f0*/                   STG.E.64 desc[UR4][R4.64], R2                &req={1} ?trans1;          /* 0x0000000204007986 */
+73:        /*0210*/                   STG.E desc[UR4][R6.64], R13                  &req={0} ?trans2;          /* 0x0000000d06007986 */
+75:        /*0220*/                   FFMA R11, R11, 1.000000003171076851e-30, R10          ?WAIT5_END_GROUP; /* 0x0da242600b0b7823 */
+77:        /*0230*/                   STG.E desc[UR4][R8.64], R11                  &req={2} ?trans1;          /* 0x0000000b08007986 */
+========== run low-reg equivalent cubins ==========
+----- odd/odd equivalent: expected 459 -----
+run 00: cycles = 3, sink = 341.383240, expected = 459.000000, diff = 117.616760
+run 01: cycles = 3, sink = -167962511625049074204409856.000000, expected = 459.000000, diff = 167962511625049074204409856.000000
+run 02: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 03: cycles = 3, sink = 11403597447168.000000, expected = 459.000000, diff = 11403597447168.000000
+run 04: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 05: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 06: cycles = 3, sink = 1855945728.000000, expected = 459.000000, diff = 1855945216.000000
+run 07: cycles = 3, sink = 1088198963201924463847276544.000000, expected = 459.000000, diff = 1088198963201924463847276544.000000
+run 08: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 09: cycles = 3, sink = 437.987488, expected = 459.000000, diff = 21.012512
+run 10: cycles = 3, sink = -8139536471107732619919360.000000, expected = 459.000000, diff = 8139536471107732619919360.000000
+run 11: cycles = 3, sink = -159242542379528676679425720320.000000, expected = 459.000000, diff = 159242542379528676679425720320.000000
+run 12: cycles = 3, sink = 479.103668, expected = 459.000000, diff = 20.103668
+run 13: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 14: cycles = 3, sink = 2506270976.000000, expected = 459.000000, diff = 2506270464.000000
+run 15: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 16: cycles = 3, sink = 142008544.000000, expected = 459.000000, diff = 142008080.000000
+run 17: cycles = 3, sink = 25277475454430740480.000000, expected = 459.000000, diff = 25277475454430740480.000000
+run 18: cycles = 3, sink = 1595093940734032710566462494422859776.000000, expected = 459.000000, diff = 1595093940734032710566462494422859776.000000
+run 19: cycles = 3, sink = -164106991080926674419712.000000, expected = 459.000000, diff = 164106991080926674419712.000000
+run 20: cycles = 3, sink = -212421788027342450327552.000000, expected = 459.000000, diff = 212421788027342450327552.000000
+run 21: cycles = 3, sink = 1537.536011, expected = 459.000000, diff = 1078.536011
+run 22: cycles = 3, sink = 607348586724515036442011449163776.000000, expected = 459.000000, diff = 607348586724515036442011449163776.000000
+run 23: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 24: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 25: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 26: cycles = 3, sink = 16259905880455793440796442624.000000, expected = 459.000000, diff = 16259905880455793440796442624.000000
+run 27: cycles = 3, sink = 438.000031, expected = 459.000000, diff = 20.999969
+run 28: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 29: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 30: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 31: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 32: cycles = 3, sink = 486.299591, expected = 459.000000, diff = 27.299591
+run 33: cycles = 3, sink = 368.782288, expected = 459.000000, diff = 90.217712
+run 34: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 35: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 36: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 37: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 38: cycles = 3, sink = 39110535319063778527635570688.000000, expected = 459.000000, diff = 39110535319063778527635570688.000000
+run 39: cycles = 3, sink = 58994888.000000, expected = 459.000000, diff = 58994428.000000
+run 40: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 41: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 42: cycles = 3, sink = 22886730104141860227252224.000000, expected = 459.000000, diff = 22886730104141860227252224.000000
+run 43: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 44: cycles = 3, sink = 2692032.750000, expected = 459.000000, diff = 2691573.750000
+run 45: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 46: cycles = 3, sink = 24820565793553125747341009846978740224.000000, expected = 459.000000, diff = 24820565793553125747341009846978740224.000000
+run 47: cycles = 3, sink = 438.000000, expected = 459.000000, diff = 21.000000
+run 48: cycles = 3, sink = 142594464.000000, expected = 459.000000, diff = 142594000.000000
+run 49: cycles = 3, sink = 33347629118539169792.000000, expected = 459.000000, diff = 33347629118539169792.000000
+min cycles = 3
+avg cycles = 3.00
+SINK_CHECK: FAIL

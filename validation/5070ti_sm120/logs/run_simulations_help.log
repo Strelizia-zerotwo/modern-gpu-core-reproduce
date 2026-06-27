@@ -1,0 +1,49 @@
+Usage: run_simulations.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -B BENCHMARK_LIST, --benchmark_list=BENCHMARK_LIST
+                        a comma seperated list of benchmark suites to run. See
+                        apps/define-*.yml for the benchmark suite names.
+  -C CONFIGS_LIST, --configs_list=CONFIGS_LIST
+                        a comma seperated list of configs to run. See
+                        configs/define-*.yml for the config names.
+  -p BENCHMARK_EXEC_PREFIX, --benchmark_exec_prefix=BENCHMARK_EXEC_PREFIX
+                        When submitting the job to torque this string is
+                        placed before the command line that runs the
+                        benchmark.  Useful when wanting to run valgrind.
+  -r RUN_DIRECTORY, --run_directory=RUN_DIRECTORY
+                        Name of directory in which to run simulations
+  -n, --no_launch       When set, no torque jobs are launched.  However, all
+                        the setup for running is performed. ie, the run
+                        directories are created and are ready to run. This can
+                        be useful when you want to create a new configuration,
+                        but want to test it locally before  launching a bunch
+                        of jobs.
+  -s SIMULATOR_DIR, --simulator_dir=SIMULATOR_DIR
+                        Point this to the directory that your .so is stored
+                        in. If nothing is input here - the scripts will assume
+                        that you are using the so built in GPGPUSIM_ROOT or
+                        ACCELSIM_ROOT.
+  -N LAUNCH_NAME, --launch_name=LAUNCH_NAME
+                        Pass if you want to name the launch. This will
+                        determine the name of the logfile. If you do not name
+                        the file, it will just use the current date/time.
+  -T TRACE_DIR, --trace_dir=TRACE_DIR
+                        Pass this option to run the simulator in trace-driven
+                        mode. The directory passed should be the root of all
+                        the trace files.
+  -M JOB_MEM, --job_mem=JOB_MEM
+                        Memory usgae of the job be sure to specify the units
+                        i.e. 4G, 900M, etc..
+  -l LAUNCHER, --launcher=LAUNCHER
+                        Specify how jobs will be launched. Select one of
+                        sbatch (slurm), qsub (torque), local. By default, we
+                        test for slurm, then torque, then just use local if
+                        you have neither.
+  -c CORES, --cores=CORES
+                        Specify the core limit when using procman. If nothing
+                        is specified, all the cores on the local node will be
+                        used.
+  -a, --accelwattch_HW  Enable passing hw_perf_bench_name for accelwattch hw
+                        and hybrid runs to config file.
